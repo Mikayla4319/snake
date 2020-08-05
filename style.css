@@ -1,0 +1,13 @@
+body {
+    margin:0x;
+    padding: 0;
+}
+
+#snake {
+    display: block;
+}
+
+#gameOver {
+    position: absolute;
+    visibility: hidden;
+}
