@@ -1,11 +1,21 @@
 var gameState;
 var gameOverMenu;
+var restartButton;
 
 
+//const myFund = (param1, param2) => {
+
+
+//}
 
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
-gameOvrMenu = document.getElementById("gameOver");
+
+gameOverMenu = document.getElementById("gameOver");
+centerMenuPosition(gameOverMenu);
+
+restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", gameRestart);
 
 // create the unit
 const box = 32;
@@ -76,6 +86,15 @@ function direction(event){
     }
 }
 
+//restart game
+
+function gameRestart() {
+    
+    //displayGame(gameOverMenu, cvs);
+    location.reload();
+
+}
+
 // cheack collision function
 function collision(head,array){
     for(let i = 0; i < array.length; i++){
@@ -89,7 +108,6 @@ function collision(head,array){
 // draw everything to the canvas
 
 function draw(){
-    
    
     ctx.drawImage(ground,0,0);
     
@@ -136,10 +154,23 @@ function draw(){
     
     // game over
     
-    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
+    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17 *box || collision(newHead,snake)){
+        
+        for( let i = 0; i < snake.length ; i++) {
+            
+            ctx.fillStyle = ( i == 0 )? "white" : "red";
+            ctx.fillRect(snake[i].x,snake[i].y,box,box);
+            
+            ctx.strokeStyle = "white";
+            ctx.strokeRect(snake[i].x,snake[i].y,box,box);
+        }
         clearInterval(game);
         dead.play();
-        displayMenu(gameOverMenu);
+        
+        setTimeout(function() {
+            displayMenu(gameOverMenu, cvs)
+        }, 500);
+        
     }
     
     snake.unshift(newHead);
@@ -152,12 +183,23 @@ function draw(){
 
 // call draw function every 100 ms
 
-let game = setInterval(draw,100);
+let game = setInterval(draw, 100);
 
-function displayMenu(menu) {
+function displayMenu(menu, snake) {
     menu.style.visibility = "visible";
+    snake.style.visibility = "hidden";
+
 }
 
-function showMenu(state) {
+
+function displayGame(menu, snake) {
+    menu.style.visibility = "hidden";
+    snake.style.visibility = "visible";
+
+}
+
+function centerMenuPosition(menu) {
+    menu.style.top = (680/2) - (menu.offsetHeight) + "px";
+    menu.style.left = (550/2)- (menu.offsetHeight) + "px";
 
 }
