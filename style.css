@@ -17,6 +17,11 @@ body {
     visibility: hidden;
 }
 
+#gameStart {
+    position: absolute;
+    visibility: hidden;
+}
+
 h1, h3 {
 
     font-family: 'Permanent Marker', cursive;
@@ -35,6 +40,22 @@ h1, h3 {
     border: 2px solid white;
     border-radius: 20px;
 }
+
 #restartButton:hover {
+    background-color: #ffa682;
+}
+
+.titleStart {
+    font-size: 62px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#startButton {
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+#startButton:hover {
     background-color: #ffa682;
 }
