@@ -1,6 +1,9 @@
 var gameState;
 var gameOverMenu;
+var gameStartMenu;
+
 var restartButton;
+var startButton;
 
 
 //const myFund = (param1, param2) => {
@@ -16,6 +19,13 @@ centerMenuPosition(gameOverMenu);
 
 restartButton = document.getElementById("restartButton");
 restartButton.addEventListener("click", gameRestart);
+
+gameStartMenu = document.getElementById("gameStart");
+centerMenuPosition(gameStartMenu);
+
+startButton = document.getElementById("startButton");
+startButton.addEventListener("click", gameStart);
+
 
 // create the unit
 const box = 32;
@@ -88,11 +98,19 @@ function direction(event){
 
 //restart game
 
-function gameRestart() {
+function gameRestart(menu, snake) {
     
     //displayGame(gameOverMenu, cvs);
     location.reload();
+    menu.style.visibility = "hidden";
+    snake.style.visibility = "visible";
 
+}
+// start game
+function gameStart(menu, snake) {
+   
+    menu.style.visibility = "hidden";
+    snake.style.visibility = "visible";
 }
 
 // cheack collision function
