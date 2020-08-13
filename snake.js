@@ -4,12 +4,10 @@ var gameStartMenu;
 
 var restartButton;
 var startButton;
-
-
-//const myFund = (param1, param2) => {
-
-
-//}
+var playHUD;
+var scoreboard;
+//var highScore;
+//var hScore = 0;
 
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
@@ -26,9 +24,13 @@ centerMenuPosition(gameStartMenu);
 startButton = document.getElementById("startButton");
 startButton.addEventListener("click", gameStart);
 
-
+playHUD = document.getElementById("playHUD");
+scoreboard = document.getElementById("scoreboard");
+//highScore = document.getElementById("highscore");
 // create the unit
 const box = 32;
+
+
 
 // load images
 const ground = new Image();
@@ -73,6 +75,8 @@ let food = {
 
 let score = 0;
 
+
+
 //control the snake
 
 let d;
@@ -104,13 +108,11 @@ function gameRestart(menu, snake) {
     location.reload();
     menu.style.visibility = "hidden";
     snake.style.visibility = "visible";
-
 }
 // start game
-function gameStart(menu, snake) {
-   
-    menu.style.visibility = "hidden";
-    snake.style.visibility = "visible";
+function gameStart(gameStartMenu, ctx) {
+    gameStartMenu.style.visibility = "hidden";
+    ctx.style.visibility = "visible";
 }
 
 // cheack collision function
@@ -172,9 +174,9 @@ function draw(){
     
     // game over
     
-    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17 *box || collision(newHead,snake)){
+    if(snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)){
         
-        for( let i = 0; i < snake.length ; i++) {
+        for(let i = 0; i < snake.length ; i++) {
             
             ctx.fillStyle = ( i == 0 )? "white" : "red";
             ctx.fillRect(snake[i].x,snake[i].y,box,box);
@@ -184,9 +186,16 @@ function draw(){
         }
         clearInterval(game);
         dead.play();
+        //if (score > hScore) {
+        //   hScore = score;
+        //}
         
         setTimeout(function() {
-            displayMenu(gameOverMenu, cvs)
+            displayMenu(gameOverMenu, cvs, playHUD)
+        }, 500);
+        
+        setTimeout(function() {
+            drawScoreBoard()
         }, 500);
         
     }
@@ -196,28 +205,24 @@ function draw(){
     ctx.fillStyle = "white";
     ctx.font = "45px Changa one";
     ctx.fillText(score,2*box,1.6*box);
-    
 }
 
 // call draw function every 100 ms
 
 let game = setInterval(draw, 100);
 
-function displayMenu(menu, snake) {
+function displayMenu(menu, snake, playHUD) {
     menu.style.visibility = "visible";
     snake.style.visibility = "hidden";
-
-}
-
-
-function displayGame(menu, snake) {
-    menu.style.visibility = "hidden";
-    snake.style.visibility = "visible";
-
+    playHUD.style.visibility = "visible";
 }
 
 function centerMenuPosition(menu) {
     menu.style.top = (680/2) - (menu.offsetHeight) + "px";
     menu.style.left = (550/2)- (menu.offsetHeight) + "px";
+}
 
+function drawScoreBoard() {
+    scoreboard.innerHTML = "Length: " + score;
+    //highScore.innerHTML = "High Score: " + hScore ;
 }
