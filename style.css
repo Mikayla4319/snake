@@ -17,6 +17,11 @@ body {
     visibility: hidden;
 }
 
+#playHUD {
+    position: absolute;
+    visibility: hidden;
+}
+
 #gameStart {
     position: absolute;
     visibility: hidden;
@@ -28,6 +33,13 @@ h1, h3 {
     color:white;
     text-align:center;  
      
+}
+
+h2 {
+    font-size: 30px;
+    font-family: 'Permanent Marker', cursive;
+    color:white;
+    text-align:center;  
 }
 
 .title {
@@ -59,3 +71,4 @@ h1, h3 {
 #startButton:hover {
     background-color: #ffa682;
 }
+
